@@ -22,25 +22,23 @@ export default {
 </script>
 <style scoped>
 #nav {
-  position: fixed;
-  left: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100%;
+  height: 100vh;
   padding: 20px;
   background: #222;
 }
 
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: rgba(255, 255, 255, 0.452);
   display: block;
   font-size: 1.5vw;
   padding: 10px;
   border-radius: 5px;
-  background: #151414;
-  box-shadow: 1px 5px #000;
+  background: #464646;
+  box-shadow: 1px 5px #303030;
   margin-bottom: 30px;
   transition: 0.3s;
   text-align: center;
@@ -54,7 +52,7 @@ export default {
   color: #fff;
 }
 #nav a:active {
-  box-shadow: 1px 2px #222;
+  box-shadow: 1px 2px #1f1f1f;
   transform: translateY(5px);
 }
 </style>

@@ -17,8 +17,12 @@ export default {
 };
 </script>
 <style scoped>
+.container {
+  width: 100vw;
+  display: flex;
+}
 main {
-  max-width: 100%;
+  max-width: 80%;
   display: flex;
   flex: 1 0 auto;
 }

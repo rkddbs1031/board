@@ -7,4 +7,12 @@ export default [
     title: "MENU2",
     to: "/about",
   },
+  {
+    title: "MENU3",
+    to: "/menu3",
+  },
+  {
+    title: "MENU4",
+    to: "/menu4",
+  },
 ];
