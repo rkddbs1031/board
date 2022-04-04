@@ -36,8 +36,8 @@ export default {
   font-weight: bold;
   color: rgba(255, 255, 255, 0.452);
   display: block;
-  font-size: 1.2vw;
-  padding: 10px;
+  font-size: 12px;
+  padding: 12px 10px;
   border-radius: 10px;
   background: rgb(62 62 72);
   box-shadow: 1px 5px #2a2a36;
