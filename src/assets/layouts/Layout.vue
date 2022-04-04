@@ -22,8 +22,8 @@ export default {
   display: flex;
 }
 main {
-  max-width: 80%;
   display: flex;
   flex: 1 0 auto;
+  background: rgb(15, 15, 15);;
 }
 </style>

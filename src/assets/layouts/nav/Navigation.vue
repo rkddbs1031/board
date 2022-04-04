@@ -4,8 +4,9 @@
       :to="item.to"
       v-for="(item, idx) in navItems"
       :key="`item.title-${idx}`"
-      >{{ item.title }}</router-link
     >
+      {{ item.title }}
+    </router-link>
   </div>
 </template>
 <script>
@@ -26,19 +27,20 @@ export default {
   flex-direction: column;
   justify-content: center;
   height: 100vh;
+  width: 120px;
   padding: 20px;
-  background: #222;
+  background: rgb(27, 26, 32);
 }
 
 #nav a {
   font-weight: bold;
   color: rgba(255, 255, 255, 0.452);
   display: block;
-  font-size: 1.5vw;
+  font-size: 1.2vw;
   padding: 10px;
-  border-radius: 5px;
-  background: #464646;
-  box-shadow: 1px 5px #303030;
+  border-radius: 10px;
+  background: rgb(62 62 72);
+  box-shadow: 1px 5px #2a2a36;
   margin-bottom: 30px;
   transition: 0.3s;
   text-align: center;

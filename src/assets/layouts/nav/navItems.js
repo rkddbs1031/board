@@ -1,18 +1,14 @@
 export default [
   {
-    title: "HOME",
+    title: "홈",
     to: "/",
   },
   {
-    title: "MENU2",
-    to: "/about",
+    title: "무드선택",
+    to: "/mood",
   },
   {
-    title: "MENU3",
-    to: "/menu3",
-  },
-  {
-    title: "MENU4",
-    to: "/menu4",
+    title: "마이플레이",
+    to: "/myPlay",
   },
 ];
