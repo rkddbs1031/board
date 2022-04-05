@@ -22,8 +22,7 @@ export default {
   display: flex;
 }
 main {
-  display: flex;
-  flex: 1 0 auto;
+  width: calc(100vw - 120px);
   background: rgb(15, 15, 15);;
 }
 </style>
