@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="wrap">
     <Navigation />
     <main>
       <router-view />
@@ -17,12 +17,14 @@ export default {
 };
 </script>
 <style scoped>
-.container {
-  width: 100vw;
+.wrap {
+  width: 100vw !important;
   display: flex;
+  padding: 0 !important;
+  max-width: auto !important;
 }
 main {
   width: calc(100vw - 120px);
-  background: rgb(15, 15, 15);;
+  /* background: rgb(15, 15, 15);; */
 }
 </style>

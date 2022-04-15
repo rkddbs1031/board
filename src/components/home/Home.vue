@@ -1,11 +1,31 @@
 <template>
-  <section id="section1">
-    <div class="section1">
-      <h3>당신의 기분상태로 음악을 추천해드려요 :)</h3>
-      <span> 오늘 당신의 기분은 어떤가요? </span>
-      <button @click="goMood" class="goMood">MOOD PLAY!</button>
-    </div>
-  </section>
+  <v-container fluid class="down-top-padding">
+    <v-col>
+      <v-col>
+        <v-row class="justify-space-between align-end">
+          <v-row class="d-flex align-start mb-n4">
+            <v-text-field v-model="search" label="검색"  class="d-inline-block mr-5 pa-0"/>
+            <v-btn
+              color="black"
+              class="font-weight-bold body-1 white--text"
+              @click="writeClick"
+            >
+              글쓰기
+            </v-btn>
+          </v-row>
+        </v-row>
+      </v-col>
+      <v-col class="pa-0 mt-5">
+        <v-data-table
+          :headers="headers"
+          :items="boards"
+          :items-per-page="10"
+          class="elevation-1"
+          @click:row="boardView"
+        ></v-data-table>
+      </v-col>
+    </v-col>
+  </v-container>
 </template>
 <script>
 export default {
@@ -23,7 +43,7 @@ export default {
 };
 </script>
 <style scoped>
-#section1 {
+/* #section1 {
   width: 100%;
   height: 100vh;
   display: flex;
@@ -66,5 +86,5 @@ span {
   box-shadow: 1px 2px #216039;
   color: #fff;
   transform: translateY(5px);
-}
+} */
 </style>
