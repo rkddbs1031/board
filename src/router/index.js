@@ -5,10 +5,8 @@ Vue.use(Router);
 
 const Layout = () => import("@/assets/layouts/Layout.vue");
 const BlankLayout = () => import("@/assets/layouts/BlankLayout.vue");
-const Home = () => import("@/views/Home.vue");
-// const Mood = () => import("@/components/mood/Mood.vue");
-// const Myplay = () => import("@/components/myplay/Myplay.vue");
 
+const Board = () => import("@/components/board/Board.vue");
 const Login = () => import("@/components/auth/Login.vue");
 const register = () => import("@/components/auth/Register.vue");
 
@@ -36,9 +34,9 @@ const router = new Router({
       component: Layout,
       children: [
         {
-          path: "/board",
+          path: "/board/lists",
           name: "Board",
-          component: Home,
+          component: Board,
         },
       ],
     },
