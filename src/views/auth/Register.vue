@@ -25,6 +25,19 @@
             />
           </v-col>
           <v-col class="py-0">
+            <v-text-field 
+              v-model="pw"
+              :counter="10"
+              :rules="Rules"
+              label="비밀번호"
+              :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+              :type="show1 ? 'text' : 'password'"
+              @click:append="show1 = !show1"
+              required
+              outlined
+            />
+          </v-col>
+          <v-col class="py-0">
             <v-text-field
               v-model="fName"
               :rules="Rules"
@@ -42,19 +55,7 @@
               outlined
             />
           </v-col>
-          <v-col class="py-0">
-            <v-text-field 
-              v-model="pw"
-              :counter="10"
-              :rules="Rules"
-              label="비밀번호"
-              :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-              :type="show1 ? 'text' : 'password'"
-              @click:append="show1 = !show1"
-              required
-              outlined
-            />
-          </v-col>
+          
           <v-col class="py-0">
             <v-text-field 
               v-model="email"
@@ -99,7 +100,7 @@ export default {
       this.$refs.form.validate();
       
       const userData = {
-        uername: this.userName,
+        username: this.userName,
         password: this.pw,
         firstName: this.firstName,
         lastName: this.lastName,

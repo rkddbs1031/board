@@ -6,9 +6,9 @@ Vue.use(Router);
 const Layout = () => import("@/assets/layouts/Layout.vue");
 const BlankLayout = () => import("@/assets/layouts/BlankLayout.vue");
 
-const Board = () => import("@/components/board/Board.vue");
-const Login = () => import("@/components/auth/Login.vue");
-const register = () => import("@/components/auth/Register.vue");
+const Board = () => import("@/views/board/Board.vue");
+const Login = () => import("@/views/auth/Login.vue");
+const register = () => import("@/views/auth/Register.vue");
 
 const router = new Router({
   mode: "history",
