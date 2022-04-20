@@ -21,12 +21,12 @@ const user = {
   },
   actions: {
     async userLogin({ commit }, values ) {
-      await axios.post( `${process.env.VUE_APP_API_URL}/public/auth/login`, values, { headers })
+      const API = `${process.env.VUE_APP_API_URL}/public/auth/login`;
+      await axios.post( API, values)
         .then(( res ) => {
           commit( 'setUser', res.data.data.access_token );
         })
-        .then(() => this.$router.push('/board/lists'))
-        .catch(( err ) => console.log( err.response.status ));
+        .catch(( err ) => console.log( err ));
     },
   },
 };

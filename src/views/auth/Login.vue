@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex';
 import axios from "axios";
 
 export default {
@@ -67,22 +68,22 @@ export default {
       (v) => !!v || "필수 항목입니다.ㄴㄴㄴㄴ",
     ],
   }),
+  computed: {
+    ...mapState( 'user', ['token']),
+  },
+  watch: {
+    token() {
+      this.$router.push('/board/lists');
+    },
+  },
   methods: {
+    ...mapActions( 'user', ['userLogin']),
     async login() {
       this.$refs.form.validate();
-      const user = {
+      await this.userLogin({
         username: this.username,
         password: this.password,
-      };
-      if (this.$refs.form.validate()) {
-        const API = `${process.env.VUE_APP_API_URL}/public/auth/login`;
-        await axios.post(API, user)
-          .then(() => this.$router.push('/board/lists'))
-          .catch((err) => {
-            console.log(err.response.status);
-            alert("아이디 또는 비밀번호가 맞지 않습니다.")
-          });
-      }
+      });
     },
   },
 };
