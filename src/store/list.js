@@ -28,7 +28,21 @@ const list = {
         .then((res) => {
           commit('setItems', res.data.data);
         }).catch((err) => console.log(err.response.status));
-    }
+    },
+    async postBaord({ commit }, params = {}) {
+      const { token, body } = params;
+      const headers = {
+        'Content-Type': 'application/json',
+        'X-AUTH-TOKEN': token,
+      };
+      
+      await axios.post( `${process.env.VUE_APP_API_URL}/api/posts`, body, { headers })
+        .then(() => {
+          alert('게시글이 작성되었습니다.');
+          this.$router.push('/board/lists');
+        })
+        .catch((err) => console.log(err));
+    },
   }
 };
 

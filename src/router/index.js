@@ -3,13 +3,6 @@ import Router from "vue-router";
 
 Vue.use(Router);
 
-const Layout = () => import("@/assets/layouts/Layout.vue");
-const BlankLayout = () => import("@/assets/layouts/BlankLayout.vue");
-
-const Board = () => import("@/views/board/Board.vue");
-const Login = () => import("@/views/auth/Login.vue");
-const register = () => import("@/views/auth/Register.vue");
-
 const router = new Router({
   mode: "history",
   base: process.env.BASE_URL,
@@ -17,26 +10,31 @@ const router = new Router({
     {
       path: "/",
       redirect: "/auth/login",
-      component: BlankLayout,
+      component: () => import("@/assets/layouts/BlankLayout.vue"),
       children: [
         {
           path: '/auth/login',
-          component: Login,
+          component: () => import("@/views/auth/Login.vue"),
         },
         {
           path: '/auth/register',
-          component: register,
+          component: () => import("@/views/auth/Register.vue"),
         },
       ],
     },
     {
       path: "/board",
-      component: Layout,
+      component: () => import("@/assets/layouts/Layout.vue"),
       children: [
         {
           path: "/board/lists",
           name: "Board",
-          component: Board,
+          component: () => import("@/views/board/Board.vue"),
+        },
+        {
+          path: "/board/new",
+          name: "BoardNew",
+          component: () => import( '@/views/board/BoardNew' ),
         },
       ],
     },

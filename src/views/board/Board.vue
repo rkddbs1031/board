@@ -66,7 +66,7 @@ export default {
       this.getBoard({ token: this.token });
     },
     boardNew() {
-      console.log('boardNew');
+      this.$router.push('/board/new');
     },
     boardView() {
       console.log('boardView');
