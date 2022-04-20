@@ -18,6 +18,8 @@
   </v-container>
 </template>
 <script>
+import { mapState } from 'vuex';
+
 export default {
   name: "Board",
   data: () => ({
@@ -26,6 +28,15 @@ export default {
       desserts: [],
     },
   }),
+  computed: {
+    ...mapState( 'user', ['token']),
+  },
+  created() {
+    if (!this.token) {
+      alert('로그인 정보가 없습니다. 로그인해주세요!');
+      this.$router.push('/auth/login');
+    }
+  },
   methods: {
     boardNew() {
       console.log('boardNew');
