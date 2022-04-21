@@ -50,7 +50,7 @@ export default {
   }),
   computed: {
     ...mapState( 'user', ['token']),
-    ...mapState( 'list', [ 'items' ]),
+    ...mapState( 'board', [ 'items' ]),
   },
   created() {
     if (!this.token) {
@@ -61,15 +61,15 @@ export default {
     }
   },
   methods: {
-    ...mapActions( 'list', ['getBoard']),
+    ...mapActions( 'board', ['getBoard']),
     list() {
       this.getBoard({ token: this.token });
     },
     boardNew() {
       this.$router.push('/board/new');
     },
-    boardView() {
-      console.log('boardView');
+    boardView( row ) {
+      this.$router.push(`/board/${row.id}`);
     },
   },
 };

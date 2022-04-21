@@ -36,6 +36,11 @@ const router = new Router({
           name: "BoardNew",
           component: () => import( '@/views/board/BoardNew' ),
         },
+        {
+          path: "/board/:id",
+          name: "BoardDetail",
+          component: () => import( '@/views/board/BoardDetail' ),
+        },
       ],
     },
   ],

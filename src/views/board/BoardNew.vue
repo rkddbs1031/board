@@ -102,7 +102,7 @@ export default {
     });
   },
   methods: {
-    ...mapActions( 'list', ['postBaord']),
+    ...mapActions( 'board', ['postBaord']),
     submit() {
       this.$refs.form.validate();
       this.content = this.$refs.toastuiEditor.invoke("getHTML");
