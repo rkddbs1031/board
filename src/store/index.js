@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import createPersistedState from 'vuex-persistedstate';
-import list from './list';
+import board from './board';
 import user from './user';
 Vue.use(Vuex);
 
@@ -10,7 +10,7 @@ export default new Vuex.Store({
   mutations: {},
   actions: {},
   modules: {
-    list,
+    board,
     user,
   },
   plugins: [

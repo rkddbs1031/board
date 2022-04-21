@@ -8,11 +8,15 @@ const list = {
     totalPage: 0,
     totalSize: 0,
     currentPage: 1,
+    boardInfo: [],
   },
   getters: {},
   mutations: {
     setItems(state, payload) {
       state.items = payload;
+    },
+    setBoard(state, payload) {
+      state.boardInfo = payload;
     },
   },
   actions: {
@@ -42,6 +46,17 @@ const list = {
           this.$router.push('/board/lists');
         })
         .catch((err) => console.log(err));
+    },
+    async getBoardDetail({ commit }, params = {}) {
+      const { token } = params;
+      const headers = {
+        'Content-Type': 'application/json',
+        'X-AUTH-TOKEN': token,
+      };
+      await axios.get(`${process.env.VUE_APP_API_URL}/api/posts/${params.id}`, { headers })
+        .then((res) => {
+          commit('setBoard', res.data.data);
+        }).catch((err) => console.log(err.response.status));
     },
   }
 };
