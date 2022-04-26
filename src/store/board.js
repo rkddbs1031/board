@@ -9,6 +9,7 @@ const list = {
     totalSize: 0,
     currentPage: 1,
     boardInfo: [],
+    postSuccess: null,
   },
   getters: {},
   mutations: {
@@ -17,6 +18,9 @@ const list = {
     },
     setBoard(state, payload) {
       state.boardInfo = payload;
+    },
+    postBoard(state, payload) {
+      state.postSuccess = payload;
     },
   },
   actions: {
@@ -41,9 +45,9 @@ const list = {
       };
       
       await axios.post( `${process.env.VUE_APP_API_URL}/api/posts`, body, { headers })
-        .then(() => {
+        .then((res) => {
           alert('게시글이 작성되었습니다.');
-          this.$router.push('/board/list');
+          commit('postBoard', res.data.status);
         })
         .catch((err) => console.log(err));
     },

@@ -1,22 +1,19 @@
 <template>
-  <v-container>
+  <v-container class="pt-14">
     <v-card class="pa-5">
       <v-form ref="form" lazy-validation>
-        <v-row>
-          <v-col cols="2">
-            <v-card-subtitle>제목</v-card-subtitle>
+        <v-col class="d-flex">
+          <v-col cols="1">
+            <v-card-title class="px-0">제목</v-card-title>
           </v-col>
-          <v-col cols="9">
+          <v-col cols="11">
             <v-text-field
-              :counter="50"
-              name="title"
-              required
               v-model="title"
-              maxlength="50"
+              required
               :rules="[rules.required]"
             />
           </v-col>
-        </v-row>
+        </v-col>
         <v-col>
           <Editor 
             :options="editorOptions"
@@ -72,6 +69,16 @@ export default {
   }),
   computed: {
     ...mapState( 'user', ['token']),
+    ...mapState( 'board', ['postSuccess']),
+  },
+  watch: {
+    postSuccess(val){
+      if(val === 201) {
+        setTimeout(() => {
+          this.$router.push('/board/list');
+        }, 300);
+      }
+    },
   },
   mounted() {
     const instance = this.$refs.toastuiEditor;
