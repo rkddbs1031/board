@@ -23,7 +23,7 @@
   </v-container>
 </template>
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapMutations } from 'vuex';
 
 export default {
   name: "Board",
@@ -59,8 +59,17 @@ export default {
     } else {
       this.list();
     }
+
+    this.SET_BREADCRUMBS({
+      title: '게시판',
+      text: [
+        { text: '게시판', disabled: true },
+        { text: '리스트', disabled: true },
+      ],
+    });
   },
   methods: {
+    ...mapMutations( 'layout', ['SET_BREADCRUMBS']),
     ...mapActions( 'board', ['getBoard']),
     list() {
       this.getBoard({ token: this.token });

@@ -1,30 +1,31 @@
 <template>
   <div class="wrap">
-    <Navigation />
-    <main>
+    <v-main>
+      <v-container fluid class="page-wrapper">
+        <v-container fluid class="pa-0">
+          <BaseBreadcrumb :title="Bread.title" icon="page.icon" :breadcrumbs="Bread.text" />
+        </v-container>
+      </v-container>
       <router-view />
-    </main>
+    </v-main>
   </div>
 </template>
 <script>
-import Navigation from "./nav/Navigation.vue";
+import { mapState } from 'vuex';
+import BaseBreadcrumb from '@/components/BaseBreadcrumb.vue';
 
 export default {
   name: "Layout",
   components: {
-    Navigation,
+    BaseBreadcrumb,
+  },
+  computed: {
+    ...mapState( 'layout', ['breadcrumbs']),
+    Bread: {
+      get() {
+        return this.breadcrumbs;
+      },
+    },
   },
 };
 </script>
-<style scoped>
-.wrap {
-  width: 100vw !important;
-  display: flex;
-  padding: 0 !important;
-  max-width: auto !important;
-}
-main {
-  width: calc(100vw - 120px);
-  /* background: rgb(15, 15, 15);; */
-}
-</style>

@@ -9,3 +9,8 @@ export default {
   name: "App",
 };
 </script>
+<style scoped>
+.theme--light.v-application {
+  background: #eef5f9 !important;
+}
+</style>
