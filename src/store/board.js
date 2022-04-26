@@ -43,7 +43,7 @@ const list = {
       await axios.post( `${process.env.VUE_APP_API_URL}/api/posts`, body, { headers })
         .then(() => {
           alert('게시글이 작성되었습니다.');
-          this.$router.push('/board/lists');
+          this.$router.push('/board/list');
         })
         .catch((err) => console.log(err));
     },

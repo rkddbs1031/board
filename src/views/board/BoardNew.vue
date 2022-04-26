@@ -34,7 +34,7 @@
   </v-container>
 </template>
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapState, mapMutations } from 'vuex';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import '@toast-ui/editor/dist/i18n/ko-kr';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
@@ -101,7 +101,17 @@ export default {
       return false;
     });
   },
+  created() {
+    this.SET_BREADCRUMBS({
+      title: '게시판',
+      text: [
+        { text: '게시판', disabled: false, href: '/board/list' },
+        { text: '신규 생성', disabled: true },
+      ],
+    });
+  },
   methods: {
+    ...mapMutations( 'layout', ['SET_BREADCRUMBS']),
     ...mapActions( 'board', ['postBaord']),
     submit() {
       this.$refs.form.validate();

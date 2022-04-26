@@ -27,7 +27,7 @@ const router = new Router({
       component: () => import("@/assets/layouts/Layout.vue"),
       children: [
         {
-          path: "/board/lists",
+          path: "/board/list",
           name: "Board",
           component: () => import("@/views/board/Board.vue"),
         },

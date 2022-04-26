@@ -73,7 +73,7 @@ export default {
   },
   watch: {
     token() {
-      this.$router.push('/board/lists');
+      this.$router.push('/board/list');
     },
   },
   methods: {
