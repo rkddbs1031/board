@@ -1,35 +1,44 @@
 <template>
-  <v-container class="pt-14">
-    <v-card class="pa-5">
-      <v-form  lazy-validation>
-        <v-col class="d-flex">
-          <v-text-field
-            v-model="title"
-            required
-            label="제목"
-            placeholder="제목을 입력해 주세요."
-            :rules="[rules.required]"
-          />
-        </v-col>
-        <v-col>
-          <Editor 
-            v-if="content != null"
-            :options="editorOptions"
-            initialEditType="wysiwyg"
-            :initialValue="content"
-            ref="toastuiEditor"
-            height="500px"
-          />
-        </v-col>
-        <v-col class="text-right">
-          <v-btn color="primary" class="font-weight-bold body-1 mr-2" @click="modify">저장하기</v-btn>
-          <v-btn color="primary" class="font-weight-bold body-1" outlined @click="goBack">취소</v-btn>
-        </v-col>
-      </v-form>
-    </v-card>
+  <v-container class="down-top-padding">
+    <v-col>
+      <v-col  class="d-flex justify-space-between align-center">
+        <BaseTitle title="게시글 수정하기" />
+        <v-btn outlined class="font-weight-bold body-1"  @click="goList">목록보기</v-btn>
+      </v-col>
+      <v-col>
+        <v-card class="pa-5">
+          <v-form  lazy-validation>
+            <v-col class="d-flex">
+              <v-text-field
+                v-model="title"
+                required
+                label="제목"
+                placeholder="제목을 입력해 주세요."
+                :rules="[rules.required]"
+              />
+            </v-col>
+            <v-col>
+              <Editor 
+                v-if="content != null"
+                :options="editorOptions"
+                initialEditType="wysiwyg"
+                :initialValue="content"
+                ref="toastuiEditor"
+                height="500px"
+              />
+            </v-col>
+            <v-col class="text-right">
+              <v-btn color="primary" class="font-weight-bold body-1 mr-2" @click="modify">저장하기</v-btn>
+              <v-btn color="primary" class="font-weight-bold body-1" outlined @click="goBack">취소</v-btn>
+            </v-col>
+          </v-form>
+        </v-card>
+      </v-col>
+    </v-col>
   </v-container>
 </template>
 <script>
+import BaseTitle from '@/components/BaseTitle.vue';
 import { mapState, mapActions, mapMutations } from 'vuex';
 
 import '@toast-ui/editor/dist/toastui-editor.css';
@@ -41,7 +50,10 @@ import { Editor } from '@toast-ui/vue-editor';
 
 export default {
   name: 'BoardModify',
-  components: { Editor },
+  components: { 
+    Editor,
+    BaseTitle,
+  },
   data: () => ({
     title: '',
     content: '',
@@ -139,6 +151,12 @@ export default {
       if (confirm('수정을 취소하시겠습니까?')) {
         alert('저장되지 않고 이전 화면으로 넘어갑니다.');
         this.$router.go(-1);
+      }
+    },
+    goList() {
+      if (confirm('수정을 취소하시겠습니까?')) {
+        alert('저장되지 않고 게시판 화면으로 넘어갑니다.');
+        this.$router.push('/board/list');
       }
     },
   },

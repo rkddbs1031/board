@@ -1,36 +1,42 @@
 <template>
-  <v-container>
-    <div class="delBtn text-right mt-10 mb-4">
-      <v-btn color="primary" class="font-weight-bold body-1"  @click="goBack">목록보기</v-btn>
-    </div>
-    <v-card class="boardTable" v-if="boardInfo">
-      <table class="table">
-        <colgroup>
-          <col style="width: 20%" />
-          <col style="width: 90%" />
-        </colgroup>
-        <tbody>
-          <tr class="tr">
-            <th class="pa-5 border-right">제목</th>
-            <td class="px-5">{{ boardInfo.title }}</td>
-            <v-divider></v-divider>
-          </tr>
-          <tr height="400">
-            <th class="pa-5 border-right">내용</th>
-            <td class="px-5">
-              <Viewer v-if="content != null" :initialValue="content" height="500px" />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </v-card>
-    <v-col class="text-right px-0">
-      <v-btn color="error" class="font-weight-bold body-1 mr-3" outlined @click="del">삭제하기</v-btn>
-      <v-btn color="primary" class="font-weight-bold body-1" @click="modify">수정하기</v-btn>
+  <v-container class="down-top-padding">
+    <v-col>
+      <v-col class="delBtn d-flex justify-space-between align-center">
+        <BaseTitle title="게시글 상세보기" />
+        <v-btn outlined class="font-weight-bold body-1"  @click="goBack">목록보기</v-btn>
+      </v-col>
+      <v-col>
+        <v-card class="boardTable" v-if="boardInfo">
+          <table class="table">
+            <colgroup>
+              <col style="width: 20%" />
+              <col style="width: 90%" />
+            </colgroup>
+            <tbody>
+              <tr class="tr">
+                <th class="pa-5 border-right">제목</th>
+                <td class="px-5">{{ boardInfo.title }}</td>
+                <v-divider></v-divider>
+              </tr>
+              <tr height="400">
+                <th class="pa-5 border-right">내용</th>
+                <td class="px-5">
+                  <Viewer v-if="content != null" :initialValue="content" height="500px" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </v-card>
+      </v-col>
+      <v-col class="text-right">
+        <v-btn color="error" class="font-weight-bold body-1 mr-3" outlined @click="del">삭제하기</v-btn>
+        <v-btn color="primary" class="font-weight-bold body-1" @click="modify">수정하기</v-btn>
+      </v-col>
     </v-col>
   </v-container>
 </template>
 <script>
+import BaseTitle from '@/components/BaseTitle.vue';
 import { mapState, mapActions, mapMutations } from 'vuex';
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import { Viewer } from '@toast-ui/vue-editor';
@@ -40,6 +46,7 @@ export default {
   name: 'BoardDetail',
   components: {
     Viewer,
+    BaseTitle,
   },
   data: () => ({
     content: null,

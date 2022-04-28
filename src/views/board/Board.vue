@@ -1,8 +1,8 @@
 <template>
-  <v-container fluid class="down-top-padding">
+  <v-container  class="down-top-padding">
     <v-col>
       <v-col class="d-flex justify-space-between align-center">
-        <h1>게시판</h1>
+        <BaseTitle title="게시판" />
         <v-btn @click="boardNew" color="primary" dark>글쓰기</v-btn>
       </v-col>
       <v-col>
@@ -23,10 +23,12 @@
   </v-container>
 </template>
 <script>
+import BaseTitle from '@/components/BaseTitle.vue';
 import { mapState, mapActions, mapMutations } from 'vuex';
 
 export default {
   name: "Board",
+  components: { BaseTitle },
   data: () => ({
     headers: [
       { 
