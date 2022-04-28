@@ -121,6 +121,7 @@ export default {
   },
   methods: {
     ...mapMutations( 'layout', ['SET_BREADCRUMBS']),
+    ...mapMutations('board', ['resetBoard']),
     ...mapActions('board', ['getBoardDetail', 'putBoard']),
     modify() {
       this.content = this.$refs.toastuiEditor.invoke("getHTML");
@@ -139,7 +140,10 @@ export default {
         alert('저장되지 않고 이전 화면으로 넘어갑니다.');
         this.$router.go(-1);
       }
-    }
+    },
+  },
+  destroyed() {
+    this.resetBoard();
   },
 };
 </script>

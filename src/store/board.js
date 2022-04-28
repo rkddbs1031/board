@@ -22,6 +22,9 @@ const list = {
     boardSuccess(state, payload) {
       state.boardSuccess = payload;
     },
+    resetBoard(state) {
+      state.boardSuccess = null;
+    }
   },
   actions: {
     async getBoard({ commit }, params = {}) {
@@ -82,7 +85,21 @@ const list = {
           alert('수정되지 않았습니다 다시 시도해 주세요.');
         });
     },
-  }
+    async delBoard({commit}, params = {}) {
+      const { token,id } = params;
+      const headers = {
+        'Content-Type': 'application/json',
+        'X-AUTH-TOKEN': token,
+      };
+
+      await axios.delete(`${process.env.VUE_APP_API_URL}/api/posts/${id}`, {headers})
+        .then((res) => {
+          alert('게시글이 삭제었습니다.');
+          commit('boardSuccess', res.data.status);
+        })
+        .catch((err) => console.log(err));
+    },
+  },
 };
 
 function makeQuery(params) {

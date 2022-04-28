@@ -46,11 +46,16 @@ export default {
   }),
   computed: {
     ...mapState( 'user', ['token']),
-    ...mapState( 'board', ['boardInfo']),
+    ...mapState( 'board', ['boardInfo', 'boardSuccess']),
   },
   watch: {
     boardInfo( val ) {
       this.content = val.content;
+    },
+    boardSuccess() {
+      setTimeout(() => {
+        this.$router.push('/board/list');
+      }, 300);
     },
   },
   created() {
@@ -67,14 +72,22 @@ export default {
   },
   methods: {
     ...mapMutations( 'layout', ['SET_BREADCRUMBS']),
-    ...mapActions('board', ['getBoardDetail']),
+    ...mapMutations('board', ['resetBoard']),
+    ...mapActions('board', ['getBoardDetail', 'delBoard']),
     modify() {
       this.$router.push(`/board/${this.$route.params.id}/edit`);
     },
     goBack() {
       this.$router.go(-1);
     },
-    del() {},
+    del() {
+      if(confirm('정말 삭제하시겠습니까?')) {
+        this.delBoard({token: this.token, id: this.$route.params.id});
+      }
+    },
+  },
+  destroyed() {
+    this.resetBoard();
   },
 };
 </script>

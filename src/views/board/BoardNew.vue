@@ -117,6 +117,7 @@ export default {
   },
   methods: {
     ...mapMutations( 'layout', ['SET_BREADCRUMBS']),
+    ...mapMutations('board', ['resetBoard']),
     ...mapActions( 'board', ['postBaord']),
     submit() {
       this.$refs.form.validate();
@@ -133,6 +134,9 @@ export default {
     goBack() {
       this.$router.go(-1);
     },
-  }
+  },
+  destroyed() {
+    this.resetBoard();
+  },
 };
 </script>
