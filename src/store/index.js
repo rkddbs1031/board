@@ -17,7 +17,7 @@ export default new Vuex.Store({
   },
   plugins: [
     createPersistedState({
-      paths: [ 'user', 'layout' ],
+      paths: [ 'user', 'layout', 'board' ],
     }),
   ],
 });

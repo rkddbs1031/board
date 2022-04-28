@@ -9,7 +9,7 @@ const list = {
     totalSize: 0,
     currentPage: 1,
     boardInfo: [],
-    postSuccess: null,
+    boardSuccess: null,
   },
   getters: {},
   mutations: {
@@ -19,8 +19,8 @@ const list = {
     setBoard(state, payload) {
       state.boardInfo = payload;
     },
-    postBoard(state, payload) {
-      state.postSuccess = payload;
+    boardSuccess(state, payload) {
+      state.boardSuccess = payload;
     },
   },
   actions: {
@@ -47,7 +47,7 @@ const list = {
       await axios.post( `${process.env.VUE_APP_API_URL}/api/posts`, body, { headers })
         .then((res) => {
           alert('게시글이 작성되었습니다.');
-          commit('postBoard', res.data.status);
+          commit('boardSuccess', res.data.status);
         })
         .catch((err) => console.log(err));
     },
@@ -61,6 +61,26 @@ const list = {
         .then((res) => {
           commit('setBoard', res.data.data);
         }).catch((err) => console.log(err.response.status));
+    },
+    async putBoard({commit}, params = {}){
+      const { token } = params;
+      const headers = {
+        'Content-Type': 'application/json',
+        'X-AUTH-TOKEN': token,
+      };
+      const body = {
+        title: params.title,
+        content: params.content,
+        files: params.files,
+      };
+      await axios.put(`${process.env.VUE_APP_API_URL}/api/posts/${params.id}`, body, {headers})
+        .then((res) => {
+          alert('게시글이 수정었습니다.');
+          commit('boardSuccess', res.data.status);
+        })
+        .catch(() => {
+          alert('수정되지 않았습니다 다시 시도해 주세요.');
+        });
     },
   }
 };

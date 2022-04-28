@@ -68,7 +68,9 @@ export default {
   methods: {
     ...mapMutations( 'layout', ['SET_BREADCRUMBS']),
     ...mapActions('board', ['getBoardDetail']),
-    modify() {},
+    modify() {
+      this.$router.push(`/board/${this.$route.params.id}/edit`);
+    },
     goBack() {
       this.$router.go(-1);
     },

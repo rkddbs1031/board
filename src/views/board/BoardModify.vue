@@ -1,50 +1,47 @@
 <template>
   <v-container class="pt-14">
     <v-card class="pa-5">
-      <v-form ref="form" lazy-validation>
+      <v-form  lazy-validation>
         <v-col class="d-flex">
-          <v-col cols="1">
-            <v-card-title class="px-0">제목</v-card-title>
-          </v-col>
-          <v-col cols="11">
-            <v-text-field
-              v-model="title"
-              required
-              :rules="[rules.required]"
-            />
-          </v-col>
+          <v-text-field
+            v-model="title"
+            required
+            label="제목"
+            placeholder="제목을 입력해 주세요."
+            :rules="[rules.required]"
+          />
         </v-col>
         <v-col>
           <Editor 
+            v-if="content != null"
             :options="editorOptions"
             initialEditType="wysiwyg"
+            :initialValue="content"
             ref="toastuiEditor"
             height="500px"
           />
         </v-col>
         <v-col class="text-right">
-          <v-btn color="primary" class="font-weight-bold body-1 mr-2" @click="submit">작성하기</v-btn>
-          <v-btn color="primary" class="font-weight-bold body-1" outlined @click="goBack">뒤로가기</v-btn>
+          <v-btn color="primary" class="font-weight-bold body-1 mr-2" @click="modify">저장하기</v-btn>
+          <v-btn color="primary" class="font-weight-bold body-1" outlined @click="goBack">취소</v-btn>
         </v-col>
       </v-form>
     </v-card>
   </v-container>
 </template>
 <script>
-import { mapActions, mapState, mapMutations } from 'vuex';
+import { mapState, mapActions, mapMutations } from 'vuex';
+
 import '@toast-ui/editor/dist/toastui-editor.css';
 import '@toast-ui/editor/dist/i18n/ko-kr';
-import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import 'tui-color-picker/dist/tui-color-picker.css';
-
+import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import { Editor } from '@toast-ui/vue-editor';
 
 export default {
-  name: 'BoardNew',
-  components: {
-    Editor,
-  },
+  name: 'BoardModify',
+  components: { Editor },
   data: () => ({
     title: '',
     content: '',
@@ -69,25 +66,41 @@ export default {
   }),
   computed: {
     ...mapState( 'user', ['token']),
-    ...mapState( 'board', ['boardSuccess']),
+    ...mapState( 'board', ['boardInfo', 'boardSuccess']),
   },
   watch: {
-    boardSuccess(){
+    boardSuccess() {
       setTimeout(() => {
         this.$router.push('/board/list');
       }, 300);
     },
   },
+  created() {
+    this.getBoardDetail({ token: this.token, id: this.$route.params.id });
+    
+    this.title = this.boardInfo.title;
+    this.content = this.boardInfo.content;
+    this.imageData = this.boardInfo.files;
+
+    this.SET_BREADCRUMBS({
+      title: '게시판',
+      text: [
+        { text: '게시판', disabled: false, href: '/board/list' },
+        { text: '수정', disabled: true },
+        { text: this.boardInfo.title, disabled: true },
+      ],
+    });
+  },
   mounted() {
     const instance = this.$refs.toastuiEditor;
+
     instance.invoke("addHook", "addImageBlobHook", (blob, callback) => {
       (async () => {
         const formData = new FormData();
         formData.append("files", blob);
-
         const headers = {
           'X-AUTH-TOKEN': this.token,
-          "content-type": "multipart/formdata",
+          'content-type': 'multipart/formdata',
         };
         await axios.post(`${process.env.VUE_APP_API_URL}/api/files`, formData, { headers })
           .then((res) => {
@@ -97,42 +110,36 @@ export default {
               this.imageData.push(res.data.data[0]);
             }
           })
-          .catch((err) =>  console.log(err));
-
+          .catch((err) => {
+            console.log(err);
+          });
         const imageUrl = this.imageSelect;
         callback(imageUrl, blob.name);
       })();
-
       return false;
-    });
-  },
-  created() {
-    this.SET_BREADCRUMBS({
-      title: '게시판',
-      text: [
-        { text: '게시판', disabled: false, href: '/board/list' },
-        { text: '신규 생성', disabled: true },
-      ],
     });
   },
   methods: {
     ...mapMutations( 'layout', ['SET_BREADCRUMBS']),
-    ...mapActions( 'board', ['postBaord']),
-    submit() {
-      this.$refs.form.validate();
+    ...mapActions('board', ['getBoardDetail', 'putBoard']),
+    modify() {
       this.content = this.$refs.toastuiEditor.invoke("getHTML");
-      const { title, content, imageData } = this;
-      const body = {
-        title,
-        content,
+      
+      this.putBoard({
+        token: this.token,
+        title: this.title,
+        content: this.content,
         files: this.imageData,
-      };
-
-      this.postBaord({ token: this.token, body });
+        id: this.$route.params.id,
+      });
+      
     },
     goBack() {
-      this.$router.go(-1);
-    },
-  }
+      if (confirm('수정을 취소하시겠습니까?')) {
+        alert('저장되지 않고 이전 화면으로 넘어갑니다.');
+        this.$router.go(-1);
+      }
+    }
+  },
 };
 </script>
