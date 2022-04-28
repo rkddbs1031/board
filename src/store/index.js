@@ -4,6 +4,7 @@ import createPersistedState from 'vuex-persistedstate';
 import layout from './layout';
 import board from './board';
 import user from './user';
+import comment from './comment';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -14,10 +15,11 @@ export default new Vuex.Store({
     layout,
     board,
     user,
+    comment,
   },
   plugins: [
     createPersistedState({
-      paths: [ 'user', 'layout', 'board' ],
+      paths: [ 'user', 'layout', 'board', 'comment'],
     }),
   ],
 });

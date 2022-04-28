@@ -32,6 +32,7 @@
         <v-btn color="error" class="font-weight-bold body-1 mr-3" outlined @click="del">삭제하기</v-btn>
         <v-btn color="primary" class="font-weight-bold body-1" @click="modify">수정하기</v-btn>
       </v-col>
+      <CommentList />
     </v-col>
   </v-container>
 </template>
@@ -40,13 +41,14 @@ import BaseTitle from '@/components/BaseTitle.vue';
 import { mapState, mapActions, mapMutations } from 'vuex';
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import { Viewer } from '@toast-ui/vue-editor';
-// import CommentList from "./comment/CommentList";
+import CommentList from "@/views/comment/CommentList";
 
 export default {
   name: 'BoardDetail',
   components: {
     Viewer,
     BaseTitle,
+    CommentList,
   },
   data: () => ({
     content: null,
@@ -75,9 +77,7 @@ export default {
     },
   },
   created() {
-    this.getBoardDetail({ token: this.token, id: this.$route.params.id });
-
-    
+    this.getBoardDetail({ token: this.token, id: this.$route.params.id });   
   },
   methods: {
     ...mapMutations( 'layout', ['SET_BREADCRUMBS']),
