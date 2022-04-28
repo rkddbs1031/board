@@ -3,7 +3,7 @@
     <div class="delBtn text-right mt-10 mb-4">
       <v-btn color="primary" class="font-weight-bold body-1"  @click="goBack">목록보기</v-btn>
     </div>
-    <v-card class="boardTable">
+    <v-card class="boardTable" v-if="boardInfo">
       <table class="table">
         <colgroup>
           <col style="width: 20%" />
@@ -51,6 +51,15 @@ export default {
   watch: {
     boardInfo( val ) {
       this.content = val.content;
+
+      this.SET_BREADCRUMBS({
+        title: '게시판',
+        text: [
+          { text: '게시판', disabled: false, href: '/board/list' },
+          { text: '상세보기', disabled: true },
+          { text: this.boardInfo.title, disabled: true },
+        ],
+      });
     },
     boardSuccess() {
       setTimeout(() => {
@@ -61,14 +70,7 @@ export default {
   created() {
     this.getBoardDetail({ token: this.token, id: this.$route.params.id });
 
-    this.SET_BREADCRUMBS({
-      title: '게시판',
-      text: [
-        { text: '게시판', disabled: false, href: '/board/list' },
-        { text: '상세보기', disabled: true },
-        { text: this.boardInfo.title, disabled: true },
-      ],
-    });
+    
   },
   methods: {
     ...mapMutations( 'layout', ['SET_BREADCRUMBS']),
